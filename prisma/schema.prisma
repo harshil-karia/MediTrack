@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  refreshToken String?
+
+  username String @unique
+  email String @unique
+  password String
+  firstName String
+  lastName String
+  gender Gender
+  mobile String? @unique
+  aadharNumber String @unique
+  location String
+  dob DateTime?
+
+  reports Report[]
+  medicalHistory MedicalHistory[]
+}
+
+model Laboratory {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  refreshToken String?
+
+  name String
+  mobile String @unique
+  email String @unique
+  registration String @unique
+  password String
+  doctorName String
+  
+  reports Report[]
+  medicalHistory MedicalHistory[]
+  
+}
+
+model Report {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  url String
+  public_id String?
+  medicalHistoryId Int
+  userId Int
+  laboratoryId Int?
+
+  medicalHistory MedicalHistory @relation(fields: [medicalHistoryId], references: [id], onDelete: Cascade)
+  laboratory Laboratory? @relation(fields: [laboratoryId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MedicalHistory {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name String
+  description String?
+  doctorName String?
+  date DateTime
+  userId Int
+  laboratoryId Int?
+
+  reports Report[]
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  laboratory Laboratory? @relation(fields: [laboratoryId], references: [id],onDelete: Cascade) 
+}
