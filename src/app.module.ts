@@ -8,6 +8,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from './auth/common/guards';
 import { AuthLabModule } from './auth-lab/auth-lab.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { MedicalHistoryModule } from './medical-history/medical-history.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     }),
     AuthLabModule,
     CloudinaryModule,
+    MedicalHistoryModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [

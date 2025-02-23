@@ -78,7 +78,7 @@ model MedicalHistory {
   name String
   description String?
   doctorName String?
-  date DateTime
+  date String
   userId Int
   laboratoryId Int?
 

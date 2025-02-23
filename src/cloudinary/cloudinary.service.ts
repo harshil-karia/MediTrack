@@ -11,14 +11,19 @@ export class CloudinaryService {
         })
     }
 
-    async uploadOnCloudinary(loaclFilePath: string) {
+    async uploadOnCloudinary(localFilePath: string) {
         try {
-            if(!loaclFilePath) {
+            if(!localFilePath) {
                 throw new InternalServerErrorException("Unable to upload File")
             }
-            const response = await cloudinary.uploader.upload(loaclFilePath, {
-                folder: 'uploads'
-            });
+            const response = await cloudinary.uploader.upload(
+                localFilePath, 
+                {
+                    folder: 'uploads',
+                    resource_type: 'raw',
+                    access_mode: 'public'
+                }
+            );
             return response
         } catch (error) {
             throw new InternalServerErrorException("Unable to upload file in cloudinary ", error)
