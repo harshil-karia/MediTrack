@@ -155,7 +155,6 @@ export class AuthService {
             })
 
         ])
-
         await this.updateRefreshToken(userId, rt)
         return {
             access_token: at,

@@ -4,6 +4,7 @@ import { SignInDto, SignUpDto } from './dto';
 import { RefreshTokenGuard } from './common/guards';
 import { GetCurrentUser, GetCurrentUserId, Public } from './common/decorator';
 import { AuthGuard } from '@nestjs/passport';
+import { GetCurrentLabId } from '../auth-lab/common/decorator/get-current-lab-id.decorator';
 
 
 @Controller('user/auth')
@@ -27,7 +28,7 @@ export class AuthController {
 
     @HttpCode(HttpStatus.OK)
     @Post('logout')
-    logout(@GetCurrentUserId() userId: number){
+    logout(@GetCurrentLabId() userId: number){
         // const user = req.user;
         return this.authService.logout(userId)
     }
