@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from './auth/common/guards';
 import { AuthLabModule } from './auth-lab/auth-lab.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthLabModule } from './auth-lab/auth-lab.module';
       isGlobal: true,
     }),
     AuthLabModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [
